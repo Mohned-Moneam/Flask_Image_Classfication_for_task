@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CIFAR-10 Image Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>CIFAR-10 Image Classification</h1>
+    <div id="image-display">
+        {% if prediction and prediction.filename %}
+            <img src="{{ url_for('static', filename='uploads/' + prediction.filename) }}" alt="Uploaded Image" class="displayed-image">
+        {% endif %}
+    </div>
+    <form action="/classify" method="post" enctype="multipart/form-data">
+        <label for="image" class="upload-btn">Choose an Image</label>
+        <input type="file" name="image" id="image" accept="image/*" required>
+        <input type="submit" value="Classify">
+    </form>
+    {% if prediction and prediction.class %}
+        <h2>Prediction:</h2>
+        <p>{{ prediction.class }}</p>
+    {% endif %}
+</body>
+</html>
